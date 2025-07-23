@@ -25,6 +25,17 @@ client.once('ready', () => {
     status: PresenceUpdateStatus.DoNotDisturb
   });
 });
+const express = require("express")
+const app = express();
+
+app.listen(3000, () => {
+console.log("Project is running!");
+})
+
+app.get("/", (req, res) => {
+res.send("Hello World!");
+})
+
 
 
 // Login with your token here
