@@ -21,7 +21,7 @@ client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
 
   client.user.setPresence({
-    activities: [{ name: 'rum take his clothes off', type: ActivityType.Watching }],
+    activities: [{ name: '!help', type: ActivityType.Watching }],
     status: PresenceUpdateStatus.DoNotDisturb
   });
 });
