@@ -2,18 +2,21 @@ const axios = require("axios");
 
 module.exports = {
   name: "ai",
-  description: "Ask DeepSeek AI a question.",
+  description: "Ask DeepSeek AI something.",
   async execute(client, message, args) {
     const prompt = args.join(" ");
     if (!prompt) {
-      return message.reply("❌ Please provide a prompt. Example: `-ai What is the capital of France?`");
+      return message.reply("❌ Please provide a prompt. Example: `-ai What is the capital of Japan?`");
     }
 
-    const DEEPSEEK_API_KEY = "sk-a1f50f3436e34198a9f3f9b73811d18d"; // <- your key here
+    // Your DeepSeek API key directly in code
+    const DEEPSEEK_API_KEY = "sk-a1f50f3436e34198a9f3f9b73811d18d";
 
     try {
+      // Optional: show typing indicator
       await message.channel.sendTyping();
 
+      // API request to DeepSeek
       const response = await axios.post(
         "https://api.deepseek.com/v1/chat/completions",
         {
@@ -32,13 +35,19 @@ module.exports = {
       );
 
       const reply = response.data.choices?.[0]?.message?.content;
-      if (!reply) return message.reply("❌ DeepSeek AI returned an empty response.");
-      if (reply.length > 2000) return message.reply("❌ Response too long to display.");
+      if (!reply) {
+        return message.reply("❌ DeepSeek returned no answer.");
+      }
 
-      message.reply(reply);
+      // Split reply if too long
+      if (reply.length > 2000) {
+        return message.reply("❌ Response too long to send.");
+      }
+
+      return message.reply(reply);
     } catch (error) {
       console.error("DeepSeek Error:", error.response?.data || error.message);
-      message.reply("❌ Failed to get a response from DeepSeek AI.");
+      return message.reply("❌ Error while talking to DeepSeek AI.");
     }
   },
 };
