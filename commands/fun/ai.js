@@ -10,7 +10,7 @@ module.exports = {
     }
 
     // Your DeepSeek API key directly in code
-    const DEEPSEEK_API_KEY = "sk-a1f50f3436e34198a9f3f9b73811d18d";
+    const DEEPSEEK_API_KEY = "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";
 
     try {
       // Optional: show typing indicator
